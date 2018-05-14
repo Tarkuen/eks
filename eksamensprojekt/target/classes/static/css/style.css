@@ -1,0 +1,212 @@
+body{
+    background-color: dimgray;
+}
+h1, h2, h3 {
+    font-weight: bold;
+
+}
+form{
+    color:white;
+}
+
+A.sidebarLinks:link  {text-decoration: none; color: whitesmoke;}
+A.sidebarLinks:visited {text-decoration: none; color: whitesmoke;}
+A.sidebarLinks:hover {text-decoration: none; color: whitesmoke;}
+A.sidebarLinks:active {text-decoration: none; color: whitesmoke;}
+
+A.sidebarLinks {padding: 2px 2px;text-align: center; border-radius: 3px; display: inline-block; margin-bottom: 5px;}
+A.sidebarLinks {background-color: #63885d;}
+
+
+A.ekspeder:link {text-decoration: none; color: whitesmoke;}
+A.ekspeder:visited {text-decoration: none; color: whitesmoke;}
+A.ekspeder:hover {text-decoration: none; color: whitesmoke;}
+A.ekspeder:active {text-decoration: none; color: whitesmoke;}
+A.ekspeder {box-shadow: 1px 1px 1px #888888;}
+A.ekspeder {background-color: #4CAF50;}
+A.ekspeder {padding: 3px 5px;text-align: center; border-radius: 3px; display: inline-block;}
+
+.ekspeder {box-shadow: 1px 1px 1px #888888;
+    background-color: #4CAF50;
+    color: whitesmoke;
+    padding: 3px 5px;text-align: center; border-radius: 3px; display: inline-block;
+}
+
+.okay{
+    background-color: #4CAF50;
+    color:whitesmoke;
+    padding: 2px 2px;
+    text-align: center;
+    border-radius: 3px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.infoDiv p{
+    color:whitesmoke;
+    text-shadow: 1px 1px 1px black;
+}
+
+.cancel{
+    background-color: #af0008;
+    color:whitesmoke;
+    padding: 2px 2px;
+    text-align: center;
+    border-radius: 3px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.input{
+    padding: 10px 5px;
+}
+
+.infoDiv{
+    margin-left: 150px;
+    margin-top: 80px;
+    background-color: #56753b;
+    display: inline-block;
+    padding: 10px 10px;
+}
+
+
+
+.infoDiv h1{
+    color: White;
+    text-shadow: 2px 2px 2px black;
+    font-weight: bold;
+}
+
+.infoDiv h2{
+    color: whitesmoke;
+    text-shadow: 1px 1px 1px black;
+    font-weight: bold;
+}
+
+.infoDiv2{
+    margin-left: 50px;
+    margin-top: 40px;
+    background-color: #56753b;
+    display: inline-block;
+    padding: 10px 10px;
+}
+.infoDiv2 h1{
+    color: White;
+    text-shadow: 2px 2px 2px black;
+    font-weight: bold;
+}
+
+.infoDiv2 h2{
+    color: whitesmoke;
+    text-shadow: 1px 1px 1px black;
+    font-weight: bold;
+}
+
+
+.inputdiv{
+    margin-left: 50%;
+    margin-top: 50px;
+    background-color: #8dba63;
+    display: inline-block;
+    border: 2px solid white;
+    padding: 5px 5px;
+}
+
+.inputdiv h3{ color:whitesmoke; text-shadow: 1px 1px 1px black;}
+
+
+.inputdiv2{
+    margin-left: 50px;
+    margin-top: 50px;
+    background-color: #8dba63;
+    display: inline-block;
+    border: 2px solid white;
+    padding: 5px 5px;
+}
+
+.inputdiv2 h3{ color:whitesmoke; text-shadow: 1px 1px 1px black;}
+
+.creatediv label{
+}
+
+A.slet:link {text-decoration: none; color: whitesmoke;}
+A.slet:visited {text-decoration: none; color: whitesmoke;}
+A.slet:hover {text-decoration: none; color: whitesmoke;}
+A.slet:active {text-decoration: none; color: whitesmoke;}
+A.slet {box-shadow: 1px 1px 1px #888888;}
+A.slet{background-color: #c2000e;}
+A.slet{padding: 2px 2px;text-align: center; border-radius: 2px; display: inline-block;}
+
+.ret {
+    box-shadow: 1px 1px 1px #888888;
+    background-color: #dcd206;
+    color: whitesmoke;
+    padding: 3px 5px;text-align: center; border-radius: 3px; display: inline-block;
+}
+
+
+input{
+    color:white;
+    -webkit-text-fill-color: black;
+}
+
+.tableRest table {
+    width: 80%;
+    border-collapse: collapse;
+    text-align: left;
+
+    border: 2px solid black;
+    padding: 5px 8px 5px 8px;
+    background-color: #8dba63;
+
+}
+.tableRest tr:hover{background-color: antiquewhite}
+
+.tableRest td{
+    border: 1px solid black;
+    border-collapse:collapse;
+    padding: 5px 8px 5px 8px;
+}
+
+.tableRest thead {
+    background-color: whitesmoke;
+    padding: 5px 8px 5px 8px;
+    text-align: center;
+    font-family: Verdana;
+    font-weight: bold;
+    font-size: 12px;
+    box-shadow: 2px 2px 2px gray;
+}
+
+.sidebar {
+
+    float: left;
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: relative; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: grey;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    margin-right: 5px;
+}
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    color: black;
+    border: 2px whitesmoke;
+    display: inline-block;
+}
+
+.sidebar ul {
+    font-family: "Times New Roman";
+    color: whitesmoke;
+}
+
+.sidebar li {
+    font-family: "Times New Roman";
+    font-size: 15px;
+}
+

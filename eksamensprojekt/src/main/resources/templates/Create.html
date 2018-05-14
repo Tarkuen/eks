@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ret en Restordre</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Restordre</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div class="infoDiv2">
+
+    <h1>Opret Restordre </h1>
+    <div class="creatediv">
+
+        <form method="post" th:action="@{/restordre/create}" th:object="${restordre}">
+
+        <input class="input" type="text" th:field="*{kunde_nummer}" id="*{kunde_nummer}" name="kunde_nummer"/>
+        <input class="input" type="text" th:field="*{vare_nummer}" id="*{vare_nummer}" name="vare_nummer"/>
+        <input class="input" type="number" th:field="*{antal_varer}" id="*{antal_varer}" name="antal_varer"/>
+        <input class="input" type="text" th:field="*{note}" id="*{note}" name="note"/>
+
+        <button class="okay" type="submit" >Okay</button>
+
+            <button class="cancel" formaction="/" type="submit"> Cancel </button>
+</form>
+    </div>
+    </div>
+
+</body>
+</html>
