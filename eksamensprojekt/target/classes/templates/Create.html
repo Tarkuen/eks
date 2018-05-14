@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ret en Restordre</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Restordre</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div class="infoDiv2">
+
+    <h1>Opret Restordre </h1>
+
+    <form method="post" th:object="${toEks}">
+        <div class="creatediv">
+            Kunde nummer:
+            <label for="knr">
+                <input type="text" class="input" name="knr" id="knr" th:value="${toEks.kunde_nummer}">
+            </label>
+            Vare nummer:
+            <label for="vnr" >
+                <input type="text" class="input" name="vnr" id="vnr" th:value="${toEks.vare_nummer}">
+            </label>
+            Antal:
+            <label for="antal">
+                <input type="number" class="input" name="antal" id="antal"  th:value="${toEks.antal_varer}">
+            </label>
+            <br>
+            Note:
+            <label for="note">
+                <input type="text" class="input" name="note" id="note"  th:value="${toEks.note}">
+            </label>
+            <br>
+
+            <button class="okay" type="submit" formaction="/restordre/create"> Okay </button>
+            <button class="cancel" formaction="/" type="submit"> Cancel </button>
+        </div>
+</form>
+    </div>
+
+</body>
+</html>

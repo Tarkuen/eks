@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title> Index </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="sidebar">
+   <ul>
+       <li> Handlinger
+       <ul>
+           <li><a th:href="@{/restordre/create}" class="sidebarLinks"> Tilføj Ny Restordre </a> </li>
+           <li><a href="#" class="sidebarLinks"> Udskriv Oversigt</a> </li>
+       </ul>
+       </li>
+   </ul>
+
+</div>
+<div class="tableRest">
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Kundens Nummer</th>
+        <th>Kundens Navn</th>
+        <th>Varenummer</th>
+        <th>Varens Navn</th>
+        <th>Antal Varer</th>
+        <th>Note</th>
+        <th>EksDato</th>
+        <th>Leverance Navn</th>
+        <th>Leverance Dato</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <form method="get" th:object="${restordre}">
+    <tbody>
+    <tr th:each="restordre : ${allRestordrer}">
+        <td th:text="${restordre.restordre_nummer}"></td>
+        <td th:text="${restordre.kunde_nummer}"></td>
+        <td th:text="${restordre.kunde_navn}"></td>
+        <td th:text="${restordre.vare_nummer}"></td>
+        <td th:text="${restordre.vare_navn}"></td>
+        <td th:text="${restordre.antal_varer}"></td>
+        <td th:text="${restordre.note}"></td>
+        <td th:text="${restordre.ekspeditions_dato}"></td>
+        <td th:text="${restordre.leverance_navn}"></td>
+        <td th:text="${restordre.leverance_dato}"></td>
+        <td>
+            <button type="submit" formaction="/restordre/ekspeder" class="ekspeder" name="restordre_nummer" th:value="${restordre.restordre_nummer}">Ekspeder ordre</button>
+        </td>
+        <td>
+            <button type="submit" formaction="/restordre/ret" class="ret" name="restordre_nummer" th:value="${restordre.restordre_nummer}">Ret</button>
+        </td>
+        <td>
+            <a th:href=" ${'/#'}" class="slet">Slet</a>
+        </td>
+    </tr>
+    </tbody>
+    </form>
+</table>
+</div>
+</body>
+</html>
