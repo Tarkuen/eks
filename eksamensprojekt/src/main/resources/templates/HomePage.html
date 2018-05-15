@@ -4,6 +4,15 @@
     <meta charset="UTF-8"/>
     <title> Index </title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
+    <!--//Det er fra Mozilla open Source-->
+    <!--//Fungerer på samme måde som Scriptet Claus har brugt-->
+    <script type="text/javascript">
+        function popuponclick() {
+            window.print();
+        }
+    </script>
+
 </head>
 <body>
 <div class="sidebar">
@@ -11,10 +20,22 @@
        <li> Handlinger
        <ul>
            <li><a th:href="@{/restordre/create}" class="sidebarLinks"> Tilføj Ny Restordre </a> </li>
-           <li><a href="#" class="sidebarLinks"> Udskriv Oversigt</a> </li>
+           <li><a href="javascript: popuponclick()" class="sidebarLinks"> Udskriv Oversigt</a> </li>
        </ul>
        </li>
    </ul>
+    <div>
+
+
+
+    <form method="post">
+        <label for="search"></label>
+            <input type="search" name="search" id="search">
+            <button type="submit" th:formaction="@{/search}">Okay</button>
+         <button type="submit" th:formaction="@{/}"> Reset</button>
+
+    </form>
+    </div>
 
 </div>
 <div class="tableRest">
@@ -29,7 +50,7 @@
         <th>Antal Varer</th>
         <th>Note</th>
         <th>EksDato</th>
-        <th>Leverance Navn</th>
+        <th>Leverance</th>
         <th>Leverance Dato</th>
         <th></th>
         <th></th>
@@ -57,7 +78,7 @@
             <button type="submit" formaction="/restordre/ret" class="ret" name="restordre_nummer" th:value="${restordre.restordre_nummer}">Ret</button>
         </td>
         <td>
-            <a th:href=" ${'/#'}" class="slet">Slet</a>
+            <button type="submit" formaction="/restordre/delete" class="slet" name="restordre_nummer" th:value="${restordre.restordre_nummer}">Slet</button>
         </td>
     </tr>
     </tbody>

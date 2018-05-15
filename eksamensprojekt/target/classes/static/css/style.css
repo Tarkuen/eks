@@ -26,7 +26,8 @@ A.ekspeder {box-shadow: 1px 1px 1px #888888;}
 A.ekspeder {background-color: #4CAF50;}
 A.ekspeder {padding: 3px 5px;text-align: center; border-radius: 3px; display: inline-block;}
 
-.ekspeder {box-shadow: 1px 1px 1px #888888;
+.ekspeder {
+    box-shadow: 1px 1px 1px #888888;
     background-color: #4CAF50;
     color: whitesmoke;
     padding: 3px 5px;text-align: center; border-radius: 3px; display: inline-block;
@@ -46,6 +47,8 @@ A.ekspeder {padding: 3px 5px;text-align: center; border-radius: 3px; display: in
     color:whitesmoke;
     text-shadow: 1px 1px 1px black;
 }
+
+
 
 .cancel{
     background-color: #af0008;
@@ -129,21 +132,21 @@ A.ekspeder {padding: 3px 5px;text-align: center; border-radius: 3px; display: in
 .creatediv label{
 }
 
-A.slet:link {text-decoration: none; color: whitesmoke;}
-A.slet:visited {text-decoration: none; color: whitesmoke;}
-A.slet:hover {text-decoration: none; color: whitesmoke;}
-A.slet:active {text-decoration: none; color: whitesmoke;}
-A.slet {box-shadow: 1px 1px 1px #888888;}
-A.slet{background-color: #c2000e;}
-A.slet{padding: 2px 2px;text-align: center; border-radius: 2px; display: inline-block;}
 
 .ret {
+
     box-shadow: 1px 1px 1px #888888;
     background-color: #dcd206;
     color: whitesmoke;
     padding: 3px 5px;text-align: center; border-radius: 3px; display: inline-block;
 }
 
+.slet{
+    box-shadow: 1px 1px 1px #888888;
+    background-color: #af0008;
+    color: whitesmoke;
+    padding: 3px 5px;text-align: center; border-radius: 3px; display: inline-block;
+}
 
 input{
     color:white;

@@ -19,15 +19,26 @@ public class RestordreController {
     private RestordreRepository repository = RestordreRepository.getInstance();
 
     @GetMapping("/")
+    public String index(@RequestParam(value = "search", required = false)String search, Model model) {
+
+        List<Restordre> restordreList = repository.readAllRestordrer();
+
+            if (restordreList != null && restordreList.size() > 0) {
+                model.addAttribute("allRestordrer", restordreList);
+            }
+        return "HomePage";
+    }
+
+    @PostMapping("/")
     public String index(Model model){
+        List<Restordre> restordreList = repository.readAllRestordrer();
 
-        List<Restordre> restOrdreRepository = repository.readAllRestordrer();
-
-        if(restOrdreRepository != null && restOrdreRepository.size() > 0){
-            model.addAttribute("allRestordrer", restOrdreRepository);
+        if (restordreList != null && restordreList.size() > 0) {
+            model.addAttribute("allRestordrer", restordreList);
         }
         return "HomePage";
     }
+
 
     @GetMapping("/restordre/ekspeder")
     public String eksp(@RequestParam("restordre_nummer") String restordrenummer, Model model ){
@@ -36,10 +47,18 @@ public class RestordreController {
         return "Update";
     }
 
+    @PostMapping("/search")
+    public String search(@RequestParam(value = "search", required = false) String search, Model model){
+        List<Restordre> restordreList = repository.search(search);
+        model.addAttribute("allRestordrer", restordreList);
+        return "HomePage";
+    }
+
     @PostMapping("/restordre/ekspeder")
     public String eksp( @ModelAttribute @Valid Restordre restordre,  @RequestParam("restordre_nummer") Integer restordrenummer){
         restordre.setRestordre_nummer(restordrenummer);
         repository.update(restordre);
+
         return "redirect:/";
     }
 
@@ -70,6 +89,12 @@ public class RestordreController {
     @PostMapping("restordre/create")
     public String crea(@ModelAttribute("restordre") Restordre restordre){
         repository.create(restordre);
+        return "redirect:/";
+    }
+
+    @GetMapping("restordre/delete")
+    public String delete(@RequestParam("restordre_nummer") Integer restordre_nummer){
+        repository.delete(restordre_nummer);
         return "redirect:/";
     }
 

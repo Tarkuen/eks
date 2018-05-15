@@ -29,12 +29,13 @@
             <input class="input" type="hidden" th:field="*{antal_varer}" id="*{antal_varer}" name="antal_varer"/>
             <input class="input" type="hidden" th:field="*{note}" id="*{note}" name="note"/>
             <input class="input" type="hidden" th:field="*{aktiv}" id="*{aktiv}" name="aktiv"/>
-            <input class="input" type="date" th:field="*{ekspeditions_dato}" id="ekspeditions_dato" name="ekspeditions_dato"/>
+            <input class="input" type="date" th:field="*{ekspeditions_dato}" id="ekspeditions_dato" name="ekspeditions_dato" required="required"/>
             <button class="okay" type="submit" th:field="*{restordre_nummer}" >Okay</button>
 
-<button class="cancel" type="submit" value="/restordre/ekspeder"> Cancel </button>
         </form>
-</div>
+        
+        <a class="cancel" type="button" th:href="@{/}" > Cancel </a>
+    </div>
 </div>
 
 </body>
