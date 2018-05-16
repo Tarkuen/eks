@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title> Index </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
+    <!--//Det er fra Mozilla open Source-->
+    <!--//Fungerer på samme måde som Scriptet Claus har brugt-->
+    <script type="text/javascript">
+        function popuponclick(){
+            window.print();
+        }
+    </script>
+<script type="text/javascript">
+    function deleteWarning(){
+        alert("Restordren er blevet slettet");
+    }
+</script>
+
+</head>
+<body>
+<div class="sidebar">
+   <ul>
+       <li> Handlinger
+       <ul>
+           <li><a th:href="@{/restordre/create}" class="sidebarLinks"> Tilføj Ny Restordre </a> </li>
+           <li><a href="javascript: popuponclick()" class="sidebarLinks"> Udskriv Oversigt</a> </li>
+       </ul>
+       </li>
+   </ul>
+    <div>
+
+
+
+    <form method="post">
+        <label for="search"></label>
+            <input type="search" name="search" id="search">
+            <button type="submit" th:formaction="@{/search}">Søg</button>
+         <button type="submit" th:formaction="@{/}"> Reset</button>
+        <br>
+    </form>
+
+        <br>
+        <form method="post">
+            <input type="hidden" name="search" id="search" th:value="0">
+            <button type="submit" th:formaction="@{/search}">Vis Ekspederede</button>
+        </form>
+        <br>
+        <form method="post">
+            <input type="hidden" name="search" id="search" th:value="1">
+            <button type="submit" th:formaction="@{/search}">Vis Aktive</button>
+            <button type="submit" th:formaction="@{/}"> Reset</button>
+        </form>
+        <br>
+
+
+
+    </div>
+
+</div>
+<div class="tableRest">
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Kundens Nummer</th>
+        <th>Kundens Navn</th>
+        <th>Varenummer</th>
+        <th>Varens Navn</th>
+        <th>Antal Varer</th>
+        <th>Note</th>
+        <th>EksDato</th>
+        <th>Leverance</th>
+        <th>Leverance Dato</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <form method="get" th:object="${restordre}">
+    <tbody>
+    <tr th:each="restordre : ${allRestordrer}">
+        <td th:text="${restordre.restordre_nummer}"></td>
+        <td th:text="${restordre.kunde_nummer}"></td>
+        <td th:text="${restordre.kunde_navn}"></td>
+        <td th:text="${restordre.vare_nummer}"></td>
+        <td th:text="${restordre.vare_navn}"></td>
+        <td th:text="${restordre.antal_varer}"></td>
+        <td th:text="${restordre.note}"></td>
+        <td th:text="${#dates.format(restordre.ekspeditions_dato, 'dd/MMM/yy')}"></td>
+        <td th:text="${restordre.leverance_navn}"></td>
+        <td th:text="${restordre.leverance_dato}"></td>
+        <td>
+            <button type="submit" formaction="/restordre/ekspeder" class="ekspeder" name="restordre_nummer" th:value="${restordre.restordre_nummer}">Ekspeder ordre</button>
+        </td>
+        <td>
+            <button type="submit" formaction="/restordre/ret" class="ret" name="restordre_nummer" th:value="${restordre.restordre_nummer}">Ret</button>
+        </td>
+        <td>
+
+            <button onclick="deleteWarning()" type="submit" formaction="/restordre/delete" class="slet" name="restordre_nummer" th:value="${restordre.restordre_nummer}">Slet</button>
+        </td>
+    </tr>
+    </tbody>
+    </form>
+
+</table>
+</div>
+</body>
+</html>

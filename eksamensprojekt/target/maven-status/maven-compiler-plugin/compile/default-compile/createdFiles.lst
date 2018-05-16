@@ -1,0 +1,16 @@
+com\example\eksamen\controller\VareController.class
+com\example\eksamen\EksamensprojektApplication.class
+com\example\eksamen\Repository\KundeRepository.class
+com\example\eksamen\model\Restordre.class
+com\example\eksamen\Repository\RestordreRepository.class
+com\example\eksamen\Repository\VareRepository.class
+com\example\eksamen\WebConfig.class
+com\example\eksamen\Repository\KundeInterface.class
+com\example\eksamen\model\Leverance.class
+com\example\eksamen\Repository\LeveranceRepository.class
+com\example\eksamen\model\Kunde.class
+com\example\eksamen\controller\RestordreController.class
+com\example\eksamen\controller\KundeController.class
+com\example\eksamen\controller\LeveranceController.class
+com\example\eksamen\Repository\RestordreInterface.class
+com\example\eksamen\model\Vare.class

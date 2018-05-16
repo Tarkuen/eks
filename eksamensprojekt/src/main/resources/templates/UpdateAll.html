@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ret en Restordre</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Restordre</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div class="infoDiv2">
+
+    <h1>Valgt restordre:</h1>
+    <h2>Kunde nummer: </h2> <p th:text="${restordre.kunde_nummer+': '+restordre.kunde_navn}"></p>
+    <h2>Vare nummer: </h2> <p th:text="${restordre.vare_nummer+': '+restordre.vare_navn}"></p>
+    <h2>Note: <span th:text="${restordre.note}"></span> </h2>
+
+
+    <form method="post" th:object="${restordre}" th:action="@{/restordre/ret}">
+
+        <div class="inputdiv2">
+            <h3>Vælg dato for ekspedering af restordre: </h3>
+
+            <label for="restordre_nummer">
+                <input type="hidden" class="hidden" id="restordre_nummer" name="restordre_nummer" th:field="*{restordre_nummer}">
+            </label>
+
+            <label for="knr" th:value="*{kunde_nummer}">
+                <input type="text" class="input" name="knr" id="knr" th:field="*{kunde_nummer}">
+            </label>
+            <label for="vnr" th:value="*{vare_nummer}">
+                <input type="text" class="input" name="vnr" id="vnr" th:field="*{vare_nummer}">
+            </label>
+            <label for="antal" th:value="*{antal_varer}">
+                <input type="number" class="input" name="antal" id="antal"  th:field="*{antal_varer}">
+            </label>
+            <label for="note" th:value="*{note}">
+                <input type="text" class="input" name="note" id="note"  th:field="*{note}">
+            </label>
+
+            <button class="okay" type="submit"> Okay </button>
+            <button class="cancel" formaction="/" type="submit"> Cancel </button>
+        </div>
+</div>
+</form>
+
+</body>
+</html>
+</body>
+</html>

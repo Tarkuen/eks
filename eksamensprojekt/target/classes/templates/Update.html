@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Restordre</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div class="infoDiv">
+
+    <h1>Valgt restordre:</h1>
+
+    <h2>Kunde nummer: </h2> <p th:text="${restordre.kunde_nummer+': '+restordre.kunde_navn}"></p>
+    <h2>Vare nummer: </h2> <p th:text="${restordre.kunde_nummer+': '+restordre.vare_navn}"></p>
+    <h2>Note:  </h2> <p th:text="${restordre.note}"></p>
+
+    <div class="inputdiv">
+        <h3>Vælg dato for ekspedering af restordre: </h3>
+
+
+
+        <form method="post" th:action="@{/restordre/ekspeder}" th:object="${restordre}">
+
+    <label for="ekspeditions_dato">Ekspeditions Dato </label>
+            <input class="input" type="hidden" th:field="*{restordre_nummer}" id="*{restordre_nummer}" name="restordre_nummer"/>
+            <input class="input" type="hidden" th:field="*{kunde_nummer}" id="*{kunde_nummer}" name="kunde_nummer"/>
+            <input class="input" type="hidden" th:field="*{vare_nummer}" id="*{vare_nummer}" name="vare_nummer"/>
+            <input class="input" type="hidden" th:field="*{antal_varer}" id="*{antal_varer}" name="antal_varer"/>
+            <input class="input" type="hidden" th:field="*{note}" id="*{note}" name="note"/>
+            <input class="input" type="hidden" th:field="*{aktiv}" id="*{aktiv}" name="aktiv"/>
+            <input class="input" type="date" th:field="*{ekspeditions_dato}" id="ekspeditions_dato" name="ekspeditions_dato" required="required"/>
+            <button class="okay" type="submit" th:field="*{restordre_nummer}" >Okay</button>
+
+        </form>
+        
+        <a class="cancel" type="button" th:href="@{/}" > Cancel </a>
+    </div>
+</div>
+
+</body>
+</html>

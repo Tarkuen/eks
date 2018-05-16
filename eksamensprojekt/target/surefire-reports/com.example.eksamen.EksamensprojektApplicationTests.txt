@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.example.eksamen.EksamensprojektApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.415 s <<< FAILURE! - in com.example.eksamen.EksamensprojektApplicationTests
+contextLoads(com.example.eksamen.EksamensprojektApplicationTests)  Time elapsed: 0.006 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'persistenceExceptionTranslationPostProcessor' defined in class path resource [org/springframework/boot/autoconfigure/dao/PersistenceExceptionTranslationAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor]: Factory method 'persistenceExceptionTranslationPostProcessor' threw exception; nested exception is java.lang.NoSuchMethodError: org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor.setProxyTargetClass(Z)V
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor]: Factory method 'persistenceExceptionTranslationPostProcessor' threw exception; nested exception is java.lang.NoSuchMethodError: org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor.setProxyTargetClass(Z)V
+Caused by: java.lang.NoSuchMethodError: org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor.setProxyTargetClass(Z)V
+
