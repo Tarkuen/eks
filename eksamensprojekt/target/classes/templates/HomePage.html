@@ -63,7 +63,6 @@
 <table>
     <thead>
     <tr>
-        <th>#</th>
         <th>Kundens Nummer</th>
         <th>Kundens Navn</th>
         <th>Varenummer</th>
@@ -82,7 +81,6 @@
     <form method="get" th:object="${restordre}">
     <tbody>
     <tr th:each="restordre : ${allRestordrer}">
-        <td th:text="${restordre.restordre_nummer}"></td>
         <td th:text="${restordre.kunde_nummer}"></td>
         <td th:text="${restordre.kunde_navn}"></td>
         <td th:text="${restordre.vare_nummer}"></td>

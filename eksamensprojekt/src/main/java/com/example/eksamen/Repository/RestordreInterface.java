@@ -13,9 +13,8 @@ public interface RestordreInterface {
     Restordre read(String restordreId);
     void update(Restordre restordre);
 
-    void delete(Integer restordreID);
+    void delete(String restordreID);
     List<Restordre> search(String search);
-    void table();
-    void filer();
+
 
 }

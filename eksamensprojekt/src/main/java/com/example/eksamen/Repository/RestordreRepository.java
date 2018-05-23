@@ -3,6 +3,7 @@ package com.example.eksamen.Repository;
 import com.example.eksamen.DBConn;
 import com.example.eksamen.model.Restordre;
 
+import org.springframework.dao.DeadlockLoserDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -11,11 +12,22 @@ import java.util.*;
 @Repository
 public class RestordreRepository implements RestordreInterface {
 
+    /**
+     * Privat instans af vores forbindelsesobjekt.
+     */
     private DBConn databaseConnection;
 
-    //Her opretter vi den som Singleton, da vi helst undgår mere end én åben DBforbindelse til DML
+    /**
+     * Statisk instans af klassen, som indgår i vores constructor. Dette gør det muligt at kalde til den samme instans
+     * for hver gang klassen skal bruges og derved overholde Singleton princippet.
+     */
     private static RestordreRepository instance;
 
+    /**
+     * Instantiering af singleton objektet RestordreRepository, der sikrer kun én instance af objektetet eksisterer.
+     * Desuden er den public og static, da man skal kunne kalde den fra alle steder I applikationen (Global Access).
+     * @return et  <code>com.example.eksamen.RestordreRepository</code>  objekt.
+     */
     public static RestordreRepository getInstance() {
         if (instance == null)
             instance = new RestordreRepository();
@@ -23,10 +35,25 @@ public class RestordreRepository implements RestordreInterface {
     }
 
     //Klassens constructor er nødt til at være public for at Spring.org.boot.Datasource kan finde den
+
+    /**
+     * Public Constructor, hvilket strider mod Singleton pattern.
+     * Denne constructor er nødt til at være public, da vores springframework smider BeanCreationException
+     * da den ikke kan tilgå en "non-visible class" hvilket vores private constructor er.
+     * @throws org.springframework.beans.factory.BeanCreationException
+     * Hvis constructoren er private, kan Springframework ikke oprette en Bean og definere den som Repository.
+     */
     public RestordreRepository() {
         databaseConnection = DBConn.getInstance();
     }
 
+    /**
+     * CRUD: Read funktion.
+     * Metode der indlæser samtlige restordrerer fra databasen, opretter dem som Restordre objekter
+     * og indsætter dem i et <code>java.util.Vector</code> objekt.
+     * Herefter sorteres de efter restordre nummer, med <code>sort()</code> metoden fra <code>Java.util.list</code>
+     * @return a <code>Java.util.List</code> object
+     */
     @Override
     public List<Restordre> readAllRestordrer() {
         List<Restordre> restordreList = new Vector<>();
@@ -37,7 +64,6 @@ public class RestordreRepository implements RestordreInterface {
             ResultSet rs = stmt.executeQuery("SELECT restordre_nummer, restordrer.kunde_nummer, kundeimport.kunde_navn, restordrer.vare_nummer, vareimport.vare_navn, antal_varer, note, ekspeditionsDato, vare_leverance.leveranceNavn, vare_leverance.leverance_dato, aktiv   FROM eksamens_project.restordrer   LEFT JOIN kundeimport ON (restordrer.kunde_nummer = kundeimport.kunde_nummer)  LEFT JOIN vareimport ON restordrer.vare_nummer = vareimport.vare_nummer LEFT JOIN vare_leverance ON (vare_leverance.leveranceNavn = vareimport.vare_leverancenr);");
 
             while (rs.next()) {
-                //Husk at SQL Resultset ikke er zero-indexet.
                 int i = 1;
 
                 Restordre r = new Restordre(
@@ -55,7 +81,6 @@ public class RestordreRepository implements RestordreInterface {
 
                 restordreList.add(r);
             }
-            //Vi sorterer den lige, så det den ikke giver det i forkert rækkefølge i HTML
             restordreList.sort(Comparator.comparing(Restordre::getRestordre_nummer));
             return restordreList;
         } catch (SQLException ex) {
@@ -65,6 +90,13 @@ public class RestordreRepository implements RestordreInterface {
 
     }
 
+    /**
+     * CRUD: Create funktion.
+     * Opretter en restordre og indsætter den i vores database.
+     * Selve restordren bliver oprettet under Create.HTML, hvor den bindes i en form.
+     * @param restordre
+     * Tager et Restordre objekt som parameter, som er blevet bundet til modellen fra vores view Create.HTML.
+     */
     @Override
     public void create(Restordre restordre) {
 
@@ -90,6 +122,13 @@ public class RestordreRepository implements RestordreInterface {
 
     }
 
+    /**
+     * CRUD: Read funktion.
+     * Søger efter en restordre i vores database, for at returnere den som et objekt.
+     * @param restordreNummer
+     * <code>Java.lang.String</code> objekt der henviser til vores primary key i tablet 'restordrer'.
+     * @return Returnerer et Restordre objekt
+     */
     @Override
     public Restordre read(String restordreNummer) {
         Restordre r = null;
@@ -127,6 +166,13 @@ public class RestordreRepository implements RestordreInterface {
 
     }
 
+    /**
+     * CRUD: Update funktion.
+     * Metode der opdaterer et restordre objekts information i vores database.
+     * Bruges til at udføre rettelser på objektets information.
+     * @param restordre
+     * Restordre er blevet passed fra en HTML form i et view.
+     */
     @Override
     public void update(Restordre restordre) {
 
@@ -151,15 +197,23 @@ public class RestordreRepository implements RestordreInterface {
         }
     }
 
+    /**
+     * CRUD: Delete funktion.
+     * Bruges til at slette en restordre fra vores database. Dette gøres ved at den pågæeldende restordres primary key
+     * er bundet til modellen vha. en HTML form og derefter indsættes i vores precompiled statement.
+     * @param restordreId
+     * <code>java.lang.String</code> objekt der er passed fra en HTML form i et view. Repræsenterer objektets primary key
+     * i tablet 'restordrer' i databasen.
+     */
     @Override
-    public void delete(Integer restordreId) {
+    public void delete(String restordreId) {
 
         try (Connection conn = databaseConnection.getConn()) {
             conn.setAutoCommit(false);
             conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
             PreparedStatement pstm = conn.prepareStatement("DELETE FROM eksamens_project.restordrer WHERE restordre_nummer=?;");
-            pstm.setInt(1, restordreId);
+            pstm.setString(1, restordreId);
             pstm.executeUpdate();
             conn.commit();
         } catch (SQLException ex) {
@@ -168,6 +222,15 @@ public class RestordreRepository implements RestordreInterface {
         }
     }
 
+
+    /**
+     * Metoden modtager et søgeparameter og matcher det mod informationen i samtlige restordrer.
+     * Dette gør det nemmere at søge og finde restordrer, da man kan søge på tværs af samtlige parametre.
+     * @param search
+     * Modtager dette parameter fra viewet 'HomePage' af typen <code>jave.lang.String</code>.
+     * @return
+     * Returnerer en liste af restordrer, som matcher parameters kriterier.
+     */
     @Override
     public List<Restordre> search(String search) {
 
@@ -191,79 +254,6 @@ public class RestordreRepository implements RestordreInterface {
         return newList;
         }
 
-
-
-    public void table(){
-
-        try(Connection conn=databaseConnection.getConn1()){
-
-            conn.setAutoCommit(false);
-            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-
-            String schemeQuery="CREATE SCHEMA IF NOT EXISTS  `eksamens_project` /*!40100 DEFAULT CHARACTER SET utf8 */;";
-            Statement schemeStmt=conn.createStatement();
-            schemeStmt.execute(schemeQuery);
-
-            conn.commit();
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try(Connection conn = databaseConnection.getConn()){
-            conn.setAutoCommit(false);
-            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-
-            String query="CREATE TABLE IF NOT EXISTS `kundeimport` (   `kunde_nummer` VARCHAR(50) NOT NULL,   `kunde_navn` VARCHAR(50) NOT NULL,   PRIMARY KEY (`kunde_nummer`) )  ENGINE=INNODB DEFAULT CHARSET=UTF8;";
-            Statement stmt = conn.createStatement();
-
-            String query1="CREATE TABLE IF NOT EXISTS `vareimport` (   `vare_nummer` VARCHAR(50) NOT NULL,   `vare_navn` VARCHAR(50) NOT NULL,   `vare_leverancenr` VARCHAR(50) NOT NULL,   PRIMARY KEY (`vare_nummer`),   KEY `leverance_navn` (`vare_leverancenr`) )  ENGINE=INNODB DEFAULT CHARSET=UTF8";
-            Statement stmt2 = conn.createStatement();
-
-            String query2="CREATE TABLE IF NOT EXISTS `vare_leverance` (   `leveranceNavn` VARCHAR(50) NOT NULL,   `leverance_dato` VARCHAR(45) DEFAULT NULL,   PRIMARY KEY (`leveranceNavn`),   CONSTRAINT `fk_leverance_navn` FOREIGN KEY (`leveranceNavn`)   REFERENCES `vareimport` (`vare_leverancenr`)     ON DELETE NO ACTION ON UPDATE NO ACTION )  ENGINE=INNODB DEFAULT CHARSET=UTF8;";
-            Statement stmt3 = conn.createStatement();
-
-            String query3="CREATE TABLE IF NOT EXISTS `restordrer` (   `restordre_nummer` SMALLINT(10) NOT NULL AUTO_INCREMENT,   `kunde_nummer` VARCHAR(45) NOT NULL,   `vare_nummer` VARCHAR(50) NOT NULL,   `antal_varer` INT(11) DEFAULT NULL,   `note` VARCHAR(45) DEFAULT NULL,   `ekspeditionsDato` DATE DEFAULT NULL,   `aktiv` TINYINT(4) DEFAULT '1' COMMENT 'boolean value over aktive ordrer',   PRIMARY KEY (`restordre_nummer`) )  ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=UTF8;";
-            Statement stmt4=conn.createStatement();
-
-            stmt.execute(query);
-            stmt2.execute(query1);
-            stmt3.execute(query2);
-            stmt4.execute(query3);
-
-            conn.commit();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void filer() {
-
-        try(Connection conn = databaseConnection.getConn()){
-
-            conn.setAutoCommit(false);
-            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-
-            String query=" LOAD DATA LOCAL INFILE 'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/files/debitorAfterCleanup.txt' INTO TABLE kundeimport FIELDS TERMINATED BY ';' ENCLOSED BY '\"' ESCAPED BY '\"' LINES TERMINATED BY '\\r\\n' (kunde_nummer, kunde_navn);";
-            Statement stmt= conn.createStatement();
-            String query2=" LOAD DATA LOCAL INFILE 'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/files/varekartAfterCleanup.txt' INTO TABLE vareimport FIELDS TERMINATED BY ';' ENCLOSED BY '\"' ESCAPED BY '\"' LINES TERMINATED BY '\\r\\n' (vare_nummer, vare_navn, vare_leverancenr);";
-            Statement stmt2= conn.createStatement();
-
-            stmt.execute(query);
-            stmt2.execute(query2);
-
-            conn.commit();
-
-        }
-
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 
 
 }

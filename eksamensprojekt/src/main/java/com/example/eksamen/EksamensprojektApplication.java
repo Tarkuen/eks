@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EksamensprojektApplication {
 
 	public static void main(String[] args) {
-		RestordreRepository repository = RestordreRepository.getInstance();
-		repository.table();
+		DataClean dc = DataClean.getInstance();
+		dc.table();
 		SpringApplication.run(EksamensprojektApplication.class, args);
 	}
 }
